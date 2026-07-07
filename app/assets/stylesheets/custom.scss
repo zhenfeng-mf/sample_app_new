@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$gray-medium-light: #eaeaea;
+
 /* universal */
 
 body {
@@ -42,7 +44,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  color: $gray-light;
 }
 
 p {
@@ -56,46 +58,69 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
-#logo:hover {
-  color: #fff;
-  text-decoration: none;
-}
+// #logo:hover {
+//   color: #fff;
+//   text-decoration: none;
+// }
 
 /* footer */
 
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
+  border-top: 1px solid $gray-medium-light;
+  color: $gray-light;
+  a {
+    color: $gray;
+    &:hover { 
+      //:hover, :focus, :active are psuedo classes. They are status of current tag
+      // Use "&" to attach psuedo classes. & tells SCSS no space. --> a:hover; 
+      // Without &, footer { a { some CSS}} --> footer a {some CSS}
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
 }
 
-footer a {
-  color: #555;
-}
+// footer a {
+//   color: #555;
+// }
 
-footer a:hover {
-  color: #222;
-}
+// footer a:hover {
+//   color: #222;
+// }
 
-footer small {
-  float: left;
-}
+// footer small {
+//   float: left;
+// }
 
-footer ul {
-  float: right;
-  list-style: none;
-}
+// footer ul {
+//   float: right;
+//   list-style: none;
+// }
 
-footer ul li {
-  float: left;
-  margin-left: 15px;
-}
+// footer ul li {
+//   float: left;
+//   margin-left: 15px;
+// }
 
