@@ -10,6 +10,17 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new'
 
+  # resources is a built-in routing method that automatically sets up a standardized group of
+  #  routes for a specific data object(a "resource") based on RESTful architecture.
+  # GET,        /users,             index,    Displaying a list of all users
+  # GET,        /users/new,         new,      Displaying the HTML form to create a new user
+  # POST,       /users,             create,   Saving a new user to the database
+  # GET,        /users/:id,         show,     Displaying a specific user profile (e.g., /users/1)
+  # GET,        /users/:id/edit     edit,     Displaying the HTML form to edit a user's details
+  # PATCH/PUT,  /users/:id,         update,   Saving changes made to a specific user
+  # DELETE,     /users/:id,         destroy,  Deleting a specific user
+  resources :users
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
