@@ -10,13 +10,16 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) # 実装は終わっていないことに注意!
     if @user.save
-
+      reset_session
+      log_in @user
+      
       # flash is a Rails built-in helper method that acts like a var.
       # It is a special part of the session.
       # Primary use case of flash: One-time alerts/notices.
       # 1. When flash[:success] = "xxx" executes, Rails saves this into session cookie temporarily.
       # 2. redirect happens, old page dies, new HTTP request loads new page.
-      # 3. msg saved in session self wiped when the redirect page finishes rendering.
+      # 3. msg saved in session self wiped when the "REDIRECT" page finishes rendering.
+      # flash.now expects a RENDER while flash expects a REDIRECT.
       #
       # flash is used in many other major actions such as:
       # - Logging out: flash[:info] = "You have logged out." (Redirects to the Home page)
