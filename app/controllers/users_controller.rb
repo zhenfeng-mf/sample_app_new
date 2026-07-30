@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  
+  # Display user sign up page.
   def new
     @user = User.new
   end
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params) # 実装は終わっていないことに注意!
+    @user = User.new(user_params)
     if @user.save
       reset_session
       log_in @user
@@ -32,6 +34,10 @@ class UsersController < ApplicationController
     else
       render 'new', status: :unprocessable_entity
     end
+  end
+
+  def edit 
+    @user = User.find(params[:id])
   end
 
   # Every method defined below keyword "private" is a private method.
