@@ -37,7 +37,8 @@ class User < ApplicationRecord
     :password,
     {
       presence: true,
-      length: { minimum: 8 }
+      length: { minimum: 8 },
+      allow_nil: true
     }
   )
 

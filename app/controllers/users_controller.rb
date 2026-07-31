@@ -36,8 +36,20 @@ class UsersController < ApplicationController
     end
   end
 
+  # Display user edit page.
   def edit 
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      # Update flash message and redirect to user page when success
+      flash[:success] = "Profile Updated"
+      redirect_to @user
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   # Every method defined below keyword "private" is a private method.
