@@ -3,11 +3,14 @@ require "test_helper"
 class UsersEditTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
+    @other_user = users(:archer)
   end
 
-  test "Unsuccessful Edit" do
+  test "Successful edit with friendly forwarding" do
     get edit_user_path(@user)
-    assert_template "users/edit"
+    assert_equal edit_user_url(@user), session[:forwarding_url]
+    log_in_as(@user)
+    assert_redirected_to edit_user_url(@user)
     patch user_path(@user), params: { user: { name:  "",
                                               email: "foo@invalid",
                                               password:              "foo",
@@ -18,6 +21,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test "Successful Edit" do
+    log_in_as(@user)
     get edit_user_path(@user)
     assert_template "users/edit"
     name = "Foo Bar"
@@ -32,7 +36,21 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal name, @user.name
     assert_equal email, @user.email
+  end
 
+  test "Should redirect edit when logged in as wrong user" do
+    log_in_as(@other_user)
+    get edit_user_path(@user)
+    assert flash.empty?
+    assert_redirected_to root_url
+  end
+
+  test "Should redirect update when logged in as wrong user" do
+    log_in_as(@other_user)
+    patch user_path(@user), params: { user: { name: @user.name,
+                                              email: @user.email } }
+    assert flash.empty?
+    assert_redirected_to root_url
   end
 
 end

@@ -1,17 +1,20 @@
 class SessionsController < ApplicationController
   def new
     # renders the page containing HTML login form.
+    # debugger
   end
 
+  # Receieves login form, verifies, and starts the session
   def create
-    # Receieves login form, verifies, and starts the session
+    
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
       # Success Login
+      forwarding_url = session[:forwarding_url]
       reset_session
       params[:session][:remember_me] == "1" ? remember(@user) : forget(@user)
       log_in(@user)
-      redirect_to @user
+      redirect_to forwarding_url || @user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
