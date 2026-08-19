@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
   root 'static_pages#home'
 
+  # StaticPagesController
   # get 'static_pages/help'
   get '/help', to: 'static_pages#help'
   # get 'static_pages/about'
@@ -8,7 +10,23 @@ Rails.application.routes.draw do
   # get 'static_pages/contact'
   get '/contact', to: 'static_pages#contact'
 
+  # UsersController
+  # resources is a built-in routing method that automatically sets up a standardized group of
+  #  routes for a specific data object(a "resource") based on RESTful architecture.
+  # GET,        /users,             index,    Displaying a list of all users
+  # GET,        /users/new,         new,      Displaying the HTML form to create a new user
+  # POST,       /users,             create,   Saving a new user to the database
+  # GET,        /users/:id,         show,     Displaying a specific user profile (e.g., /users/1)
+  # GET,        /users/:id/edit     edit,     Displaying the HTML form to edit a user's details
+  # PATCH/PUT,  /users/:id,         update,   Saving changes made to a specific user
+  # DELETE,     /users/:id,         destroy,  Deleting a specific user
+  resources :users
   get '/signup', to: 'users#new'
+
+  # SessionsController
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

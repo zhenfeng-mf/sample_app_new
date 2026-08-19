@@ -38,3 +38,6 @@
 .irb_history
 
 dump.rdb
+
+# Ignore my notes
+web_dev_notes.md
