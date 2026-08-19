@@ -69,10 +69,25 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def authenticated?(remember_token)
-    return false if self.remember_digest.nil?
-    BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = self.send("#{attribute}_digest") # digest = self.xxx_digest
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
+
+  def activate
+    # Access DB only one time.
+    update_columns(activated: true, activated_at: Time.zone.now)
+    # update_attribute(:activated,    true)
+    # update_attribute(:activated_at, Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+
+  ###########################################   ###########################################   ########################################### 
 
   private
 
