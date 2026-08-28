@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+  get 'password_resets/edit'
   get 'sessions/new'
   root 'static_pages#home'
 
@@ -30,6 +32,9 @@ Rails.application.routes.draw do
 
   # AccountActivationsController
   resources :account_activations, only: [:edit]
+
+  # Password Resets Controller
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
