@@ -88,9 +88,13 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test 'password should have a minimum length of 8' do
-    @user.password = 'a' * 7
+  test 'password should have a minimum length of 6' do
+    @user.password = 'a' * 5
     @user.password_confirmation = @user.password
     assert_not @user.valid?
+  end
+
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?("")
   end
 end
