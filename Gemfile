@@ -7,6 +7,8 @@ gem 'bcrypt',          '3.1.18'
 gem 'bootsnap',        '1.16.0', require: false
 gem 'bootstrap-sass',  '3.4.1'
 gem 'concurrent-ruby', '1.3.4'
+gem "active_storage_validations", "0.9.8"
+gem "image_processing",           "1.12.2"
 gem 'faker'          
 gem 'will_paginate'
 gem 'will_paginate-bootstrap-style'
@@ -19,6 +21,7 @@ gem 'sprockets-rails', '3.4.2'
 gem 'sqlite3',         '1.6.1'
 gem 'stimulus-rails',  '1.2.1'
 gem 'turbo-rails',     '1.4.0'
+
 group :development, :test do
   gem 'debug', '1.7.1', platforms: %i[mri mingw x64_mingw]
   gem 'reline', '0.5.10'
