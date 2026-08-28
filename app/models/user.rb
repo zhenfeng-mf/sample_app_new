@@ -20,6 +20,10 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
 
+  before_save :downcase_email
+  before_create :create_activation_digest
+
+
   # validates(attribute_to_be_validate, {validation options})
   validates(
     :name,
