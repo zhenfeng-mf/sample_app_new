@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   # GET,        /users/:id/edit     edit,     Displaying the HTML form to edit a user's details
   # PATCH/PUT,  /users/:id,         update,   Saving changes made to a specific user
   # DELETE,     /users/:id,         destroy,  Deleting a specific user
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
   get '/signup', to: 'users#new'
 
   # SessionsController
@@ -38,6 +42,8 @@ Rails.application.routes.draw do
 
   resources :microposts, only: [:create, :destroy]
   get '/microposts', to: 'static_pages#home'
+
+  resources :relationships,       only: [:create, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
